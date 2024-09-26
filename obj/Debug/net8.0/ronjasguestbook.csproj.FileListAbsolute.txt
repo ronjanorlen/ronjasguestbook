@@ -12,3 +12,4 @@ C:\Skola\Programmering i C#.NET\Moment 3\ronjasguestbook\obj\Debug\net8.0\refint
 C:\Skola\Programmering i C#.NET\Moment 3\ronjasguestbook\obj\Debug\net8.0\ronjasguestbook.pdb
 C:\Skola\Programmering i C#.NET\Moment 3\ronjasguestbook\obj\Debug\net8.0\ronjasguestbook.genruntimeconfig.cache
 C:\Skola\Programmering i C#.NET\Moment 3\ronjasguestbook\obj\Debug\net8.0\ref\ronjasguestbook.dll
+C:\Skola\Programmering i C#.NET\Moment 3\ronjasguestbook\obj\Debug\net8.0\ronjasguestbook.sourcelink.json
