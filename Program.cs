@@ -35,6 +35,7 @@ namespace Notes
 
             char option = Console.ReadKey(true).KeyChar; // Användare väljer alternativ, tangentknapp visas ej i konsolen, använder KeyChar för att returnera knapp
 
+
             if (option == '1')
             {
                 WritePost(); // Anropa skriva inlägg
@@ -107,20 +108,23 @@ namespace Notes
 
             // Skriv ut inlägget som användaren skrev
             Console.WriteLine("Inlägg tillagt");
-            Console.WriteLine($"{myObj.Name} skrev:");
-            Console.WriteLine($"{myObj.Post}");
 
             // Låt användaren trycka på knapp innan skärm rensas
             Console.WriteLine("Tryck på valfri knapp på tangentbordet för att fortsätta.");
             Console.ReadKey();
             Console.Clear(); // Rensa konsolen
 
+            // Visa alla inlägg
+            ShowAllPosts();
+            // Visa menyn
+            DisplayMenu();
+
         }
 
         // Visa inlägg
         public static void ShowAllPosts()
         {
-            Console.Clear(); // Rensa konsolen
+
             Console.WriteLine("Alla inlägg i gästboken:");
 
             // Om det inte finns några tidigare inlägg
@@ -143,12 +147,43 @@ namespace Notes
         // Ta bort inlägg
         public static void RemovePost()
         {
-            Console.Clear(); // Rensa konsolen
-            Console.WriteLine("Du vill ta bort ett inlägg");
-            Console.WriteLine("Ange det nummer för inlägget du vill ta bort:");
 
             // Visa alla inlägg
             ShowAllPosts();
+            Console.WriteLine("Ange det nummer för inlägget du vill ta bort:");
+
+            bool indexInput = false; // Flagga input som false först
+
+            while (!indexInput)
+            { // while-loop för kontroll av inmatning/borttagning av inlägg
+
+                // Parsa inmatning från användare, spara i variabel index
+                bool delete = int.TryParse(Console.ReadLine(), out int index);
+
+                // Kontroll att inmatning stämmer med index i inläggslistan,
+                // Om true - ta bort inlägg
+                if (delete && index >= 0 && index < inlaggList.Count)
+                {
+                    inlaggList.RemoveAt(index);
+                    SavePost();
+                    Console.WriteLine("Inlägget har tagits bort.");
+                    indexInput = true; // Flagga input som true
+                }
+                else // Om false, be användaren testa igen
+                {
+                    Console.WriteLine("Inlägget hittades inte, försök igen.");
+                }
+            }
+
+            Console.WriteLine("Tryck på valfri tangent för att fortsätta.");
+            Console.ReadKey();  // Ta användarinmatning
+            Console.Clear();  // Rensa konsolen 
+
+            // Visa alla inlägg
+            ShowAllPosts();
+
+            // Visa menyn
+            DisplayMenu();
 
         }
 
@@ -157,7 +192,6 @@ namespace Notes
         {
             string jsonString = JsonSerializer.Serialize(inlaggList, new JsonSerializerOptions { WriteIndented = true }); // Omvandla objekt till JSONsträng och indentera
             File.WriteAllText(filename, jsonString); // Spara strängen till filen "filename" (ronjasguestbook)
-            Console.WriteLine("Inlägget har sparats till fil");
         }
 
 
@@ -167,7 +201,7 @@ namespace Notes
             if (File.Exists(filename)) // Kontrollera att filen finns
             {
                 string jsonString = File.ReadAllText(filename); // om den finns, läs in innehåll och lagra i jsonString-variabel
-                 // Omvandla strängen tillbaks till en lista av objektet, använder ?? för att ge tom lista som standardvärde(om fil är tom eller ej kan deseraliseras)
+                                                                // Omvandla strängen tillbaks till en lista av objektet, använder ?? för att ge tom lista som standardvärde(om fil är tom eller ej kan deseraliseras)
                 inlaggList = JsonSerializer.Deserialize<List<Inlagg>>(jsonString) ?? new List<Inlagg>();
             }
         }
@@ -176,18 +210,16 @@ namespace Notes
         // Avsluta
         public static void Quit()
         {
+            Console.Clear(); // Rensa konsolen
             Console.WriteLine("hejdå :)");
             Environment.Exit(0); // Avsluta programmet
         }
 
 
 
-       
+
         static void Main(string[] args)
         {
-            // Välkomna till menyn
-            Console.WriteLine("Hej, vad vill du göra?");
-            // 1 - skriva inlägg, 2 - ta bort inlägg, X - avsluta
 
             // Läs in ev befintliga inlägg från fil
             LoadGuestbook();
@@ -196,10 +228,7 @@ namespace Notes
             ShowAllPosts();
 
             // Visa menyn
-            while (true)
-            {
-                DisplayMenu();
-            }
+            DisplayMenu();
 
         }
     }
