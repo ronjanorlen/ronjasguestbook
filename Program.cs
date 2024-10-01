@@ -2,20 +2,6 @@
 using System.Globalization;
 using System.Text.Json;
 
-// Enklare menysystem:
-// Kunna lägga till inlägg - ägare + inlägg, ej tomma fält
-
-// Kunna ta bort inlägg - ta bort efter valt index
-
-// Visa alla poster - ska visa vem som skrev och vad hen skrev
-
-// Inlägg ska serialiseras/deserialiseras samt sparas på fil antingen
-// binärt eller som json så att tidigare inmatad data finns lagrad
-
-// felhantering så att inmatningsfält inte är tomma
-
-// efer varje genomfört menyval ska skärmen skrivas om genom att rensa
-// konsolen och sen skriver om den. Console.Clear
 namespace Notes
 {
     class Program
