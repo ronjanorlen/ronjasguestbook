@@ -16,7 +16,7 @@ namespace Notes
         {
 
             Console.WriteLine("1 - Skriv inlägg");
-            Console.WriteLine("2 - Ta bort inlägg");
+            Console.WriteLine("2 - Ta bort inlägg\n");
             Console.WriteLine("X - Avsluta");
 
             char option = Console.ReadKey(true).KeyChar; // Användare väljer alternativ, tangentknapp visas ej i konsolen, använder KeyChar för att returnera knapp
@@ -45,7 +45,6 @@ namespace Notes
         public static void WritePost()
         {
             Console.Clear(); // Rensa konsolen
-            Console.WriteLine("Du vill skriva ett inlägg");
 
             Inlagg myObj = new(); // Instansering av nytt inlägg
 
@@ -93,7 +92,7 @@ namespace Notes
 
 
             // Skriv ut inlägget som användaren skrev
-            Console.WriteLine("Inlägg tillagt");
+            Console.WriteLine("Tack för ditt inlägg!");
 
             // Låt användaren trycka på knapp innan skärm rensas
             Console.WriteLine("Tryck på valfri knapp på tangentbordet för att fortsätta.");
@@ -110,21 +109,19 @@ namespace Notes
         // Visa inlägg
         public static void ShowAllPosts()
         {
-
-            Console.WriteLine("Alla inlägg i gästboken:");
+            Console.WriteLine("RONJAS GÄSTBOK\n");
 
             // Om det inte finns några tidigare inlägg
             if (inlaggList.Count == 0)
             {
-                Console.WriteLine("Det finns inga inlägg att visa ännu.");
+                Console.WriteLine("Det finns inga inlägg att visa ännu.\n");
             }
             else
             {
                 // Annars-loopa igenom listan med inlägg och visa för användaren
                 for (int i = 0; i < inlaggList.Count; i++)
                 {
-                    Console.WriteLine($"[{i}] {inlaggList[i].Name} - {inlaggList[i].Post}");
-                    Console.WriteLine();
+                    Console.WriteLine($"[{i}] {inlaggList[i].Name} - {inlaggList[i].Post}\n");
                 }
             }
 
@@ -134,14 +131,17 @@ namespace Notes
         public static void RemovePost()
         {
 
+            Console.Clear(); // Rensa konsolen
+
             // Visa alla inlägg
             ShowAllPosts();
             Console.WriteLine("Ange det nummer för inlägget du vill ta bort:");
 
             bool indexInput = false; // Flagga input som false först
 
-            while (!indexInput)
-            { // while-loop för kontroll av inmatning/borttagning av inlägg
+            // While-loop för kontroll av inmatning/borttagning av inlägg
+            while (!indexInput) 
+            { 
 
                 // Parsa inmatning från användare, spara i variabel index
                 bool delete = int.TryParse(Console.ReadLine(), out int index);
@@ -197,7 +197,7 @@ namespace Notes
         public static void Quit()
         {
             Console.Clear(); // Rensa konsolen
-            Console.WriteLine("hejdå :)");
+            Console.WriteLine("Hejdå :)");
             Environment.Exit(0); // Avsluta programmet
         }
 
